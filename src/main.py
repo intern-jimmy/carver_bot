@@ -61,7 +61,7 @@ def LogicalCheck():
         extracted_data = extractData(data, pastData)
         print(extracted_data)
 
-        onehourMessages = json.loads(config.get('bot', 'oneHourMessage'))
+        onehourMessages = config.get('bot', 'oneHourMessage')
         #print(f"one hour message in {extracted_data['next_carver_area']}: {onehourMessages[extracted_data['next_carver_area']]}, debug: {config.get('bot', 'debug')}")
 
         response_data = create_message(extracted_data, onehourMessages == 'True', extracted_data['next_carver_area'], int(config.get('bot', 'interval')),  config.get('bot', 'debug') == 'True')
