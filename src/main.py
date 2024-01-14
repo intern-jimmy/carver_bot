@@ -114,16 +114,13 @@ def load_environment():
     consumer_secret = os.getenv('CONSUMER_SECRET')
     access_token = os.getenv('ACCESS_TOKEN')
     access_token_secret = os.getenv('ACCESS_TOKEN_SECRET')
-    client_id = os.getenv('CLIENT_ID')
-    client_secret = os.getenv('CLIENT_SECRET')
 
     config.addSection('tweepy')
     config.set('tweepy', 'consumer_key', consumer_key)
     config.set('tweepy', 'consumer_secret', consumer_secret)
     config.set('tweepy', 'access_token', access_token)
     config.set('tweepy', 'access_token_secret', access_token_secret)
-    config.set('tweepy', 'client_id', client_id)
-    config.set('tweepy', 'client_secret', client_secret)
+
 
     """ Load data for Discord """
     discordUrl = os.getenv('DISCORD_URL')
