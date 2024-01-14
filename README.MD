@@ -1,0 +1,1 @@
+coverage run --source=./src -m unittest discover -s ./tests
