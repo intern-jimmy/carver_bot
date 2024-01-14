@@ -79,7 +79,7 @@ def LogicalCheck():
         if response_data['message'] != None:
             if config.get('bot', 'sendTweets') == 'True': # and config.get('bot', 'debug') == 'False':
 
-                twitter.sendTweet(config.get('tweepy', 'consumer_key'), config.get('tweepy', 'consumer_secret'), config.get('tweepy', 'access_token'), config.get('tweepy', 'access_token_secret'),,response_data['message'])
+                twitter.sendTweet(config.get('tweepy', 'consumer_key'), config.get('tweepy', 'consumer_secret'), config.get('tweepy', 'access_token'), config.get('tweepy', 'access_token_secret'),response_data['message'])
                 
 
             if config.get('bot', 'sendDiscord') == 'True':
