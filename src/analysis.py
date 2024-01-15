@@ -19,7 +19,13 @@ def extractData(carver_data, prev_carver_data):
             print(f"Warning: 'away_until' key not found in {key} dictionary.")
             continue
 
-        if away_until < current_time:
+        if 'working_until' in value:
+            working_until = value['working_until']
+        else:
+            print(f"Warning: 'working_until' key not found in {key} dictionary.")
+            continue
+
+        if away_until < current_time or current_time < working_until:
             extracted_data['working'] = True
             extracted_data['working_realm'] = key
             last_carver_area = key
@@ -56,7 +62,7 @@ def extractData(carver_data, prev_carver_data):
     extracted_data['minutes'] = minutes
     extracted_data['seconds'] = seconds
 
-    working_status_change = False
+    working_status_change = True
     if not (prev_carver_data is None or prev_carver_data == {}):
         working_status_change = extracted_data['working'] != prev_carver_data['working']
 

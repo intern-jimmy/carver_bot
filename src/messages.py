@@ -1,7 +1,7 @@
 from analysis import timeMessage
 
 
-def create_message(data, one_hour_sent, realm, interval_time, debug):
+def create_message(data, one_hour_sent, realm, working_realm, interval_time, debug):
     message = None
     response_data = {'message': ''}
     '''
@@ -20,10 +20,11 @@ def create_message(data, one_hour_sent, realm, interval_time, debug):
       Send a status
   '''
     timestamp = timeMessage(data)
+    print(data['status_change'])
 
     # check for the stone carver just setting up shop
     if data['status_change'] and data['working']:
-        message = '🚨  The Stone Carver has arrived in ' + realm + '! 🚨\n\nGet those stones quick, before he heads ' \
+        message = '🚨  The Stone Carver has arrived in ' + working_realm + '! 🚨\n\nGet those stones quick, before he heads ' \
                                                                   'out on the road again in ' + \
                   timestamp + '\n\n#DeFiKingdoms'
         response_data['interval'] = 600  # maybe take this in to
@@ -36,13 +37,13 @@ def create_message(data, one_hour_sent, realm, interval_time, debug):
         response_data['message'] = message
         response_data['interval'] = 600  # reset interval
     # check to see if the carver is about to leave
-    if (not data['status_change']
+    if (data['status_change'] == False
             and data['working']
             and not one_hour_sent
             and data['days'] == 0
             and ((data['hours'] == 0 and data['minutes'] <= 60) or (data['hours'] == 1 and data['minutes'] == 0))):
         response_data['oneHourMessage'] = True
-        message = '⏰  One hour left before the Stone Carver leaves! ⏰\n\n#DeFiKingdoms'
+        message = '⏰  One hour left before the Stone Carver leaves ' + working_realm + '! ⏰\n\n#DeFiKingdoms'
         response_data['message'] = message
 
     # check to see if the interval needs to be updated to accurately find him
@@ -55,9 +56,9 @@ def create_message(data, one_hour_sent, realm, interval_time, debug):
     print(f"Debug: {debug}, message: {message}")
     if debug and message is None:
         if data['time_left'] > 0:
-            message = '🚨  The Stone Carver in ' + realm + '! 🚨\n\nGet those stones quick, before he heads out on ' \
+            message = 'DEBUG:🚨  The Stone Carver in ' + working_realm + '! 🚨\n\nGet those stones quick, before he heads out on ' \
                                                           'the road again in ' if \
-                data['working'] else 'Stone Carver will be in ' + realm + ' in '
+                data['working'] else 'DEBUG: Stone Carver will be in ' + realm + ' in '
             message = message + timestamp + '\n\n#DeFiKingdoms'
         else:
             message = 'This StoneCarver has left ' + realm + ' foREVer'
