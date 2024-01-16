@@ -1,5 +1,5 @@
 def extractData(carver_data, prev_carver_data):
-    extracted_data = {'working': False}
+    extracted_data = {'working': False, 'working_realm': ''}
     last_carver_area = ''
     next_carevr_area = ''
     last_carver_time = None
